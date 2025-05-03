@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Message Saver</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1c1c1c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    input {
+      padding: 10px;
+      width: 250px;
+    }
+    button {
+      padding: 10px;
+      cursor: pointer;
+    }
+    a {
+      color: lightblue;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+  <a href="#" onclick="createAccount()">New user? Create account</a>
+
+  <script>
+    function createAccount() {
+      const username = prompt("Enter new username:");
+      const password = prompt("Enter new password:");
+      if (username && password) {
+        localStorage.setItem(`user_${username}`, password);
+        alert("Account created! Please login.");
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const storedPass = localStorage.getItem(`user_${username}`);
+
+      if (storedPass && storedPass === password) {
+        localStorage.setItem("currentUser", username);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid credentials.");
+      }
+    });
+  </script>
+</body>
+</html>
