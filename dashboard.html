@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: white;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Your Saved Message</h2>
+  <textarea id="messageBox" placeholder="Type something..."></textarea><br>
+  <button onclick="saveMessage()">Save</button>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const user = localStorage.getItem("currentUser");
+    if (!user) window.location.href = "login.html";
+
+    const savedMsg = localStorage.getItem(`msg_${user}`);
+    const box = document.getElementById("messageBox");
+    if (savedMsg) box.value = savedMsg;
+
+    function saveMessage() {
+      const msg = box.value;
+      localStorage.setItem(`msg_${user}`, msg);
+      alert("Message saved.");
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
